@@ -35,7 +35,7 @@ while True:
         btc = upbit.get_balance(tick)  
         krw = upbit.get_balance("KRW")
         
-        if (now.minute % 10) < 9 or ((now.minute % 10) == 9 and now.second < 55):
+        if (now.minute % 60) < 59 or ((now.minute % 60) == 59 and now.second < 55):
             target_price = get_target_price(tick,0.5)
             current_price = get_current_price(tick)
             if(target_price < current_price):
