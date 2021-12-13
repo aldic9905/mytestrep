@@ -38,14 +38,11 @@ while True:
         if (now.minute % 10) < 9 or ((now.minute % 10) == 9 and now.second < 50):
             target_price = get_target_price(0.3)
             current_price = get_current_price("KRW-BTC")
-            print(now.second)
-            time.sleep(1)
             if(target_price < current_price):
                 if(krw > 5000):
                     upbit.buy_market_order("KRW-BTC", krw*0.9995)
                     while True:
                         if(upbit.get_order("KRW-BTC")):
-                            print(000000)
                             continue
                         else:
                             bot_chat("매수완료")
@@ -55,7 +52,6 @@ while True:
                     upbit.sell_market_order("KRW-BTC", btc*0.9995)
                     while True:
                         if(upbit.get_order("KRW-BTC")):
-                            print(111111)
                             continue
                         else:
                             bot_chat("매도완료")
