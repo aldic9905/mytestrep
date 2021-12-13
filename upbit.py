@@ -10,7 +10,7 @@ def bot_chat(text):
     bot.sendMessage(chat_id=chat_id, text=text)
 
 def get_target_price(t,k): 
-    df = pyupbit.get_ohlcv(t, interval="minute10", count=2)
+    df = pyupbit.get_ohlcv(t, interval="minute60", count=2)
     range = df.iloc[0]['high'] - df.iloc[0]['low']
     return df.iloc[1]['open'] + range*k
 
