@@ -12,7 +12,7 @@ def bot_chat(text):
 def get_target_price(t,k): 
     df = pyupbit.get_ohlcv(t, interval="minute60", count=2)
     range = df.iloc[0]['high'] - df.iloc[0]['low']
-    return df.iloc[1]['open'] + range*k
+    return df.iloc[0]['close'] + range *k
 
 def get_current_price(t):
     return pyupbit.get_orderbook(ticker=t)["orderbook_units"][0]["ask_price"]
