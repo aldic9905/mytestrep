@@ -1,3 +1,4 @@
+from numpy import busday_count
 import pyupbit
 import telegram
 from datetime import date, datetime 
@@ -23,7 +24,6 @@ secret = "UEadUBTIqkz4UfV41alibKxbxVwoojfgYnWa9SvP"
 upbit = pyupbit.Upbit(access, secret)
 tick = "KRW-ETH"
 
-
 btc = upbit.get_balance(tick)  
 krw = upbit.get_balance("KRW")
 
@@ -35,28 +35,18 @@ while True:
         btc = upbit.get_balance(tick)  
         krw = upbit.get_balance("KRW")
         
-        if (now.minute % 10) < 9 or ((now.minute % 10) == 9 and now.second < 50):
+        if (now.minute % 10) < 9 or ((now.minute % 10) == 9 and now.second < 55):
             target_price = get_target_price(tick,0.5)
             current_price = get_current_price(tick)
             if(target_price < current_price):
                 if(krw > 5000):
                     upbit.buy_market_order(tick, krw*0.9995)
-                    buy_price = float(upbit.get_order(tick)[0]['price'])
-                    print(buy_price)
                     while True:
                         if(upbit.get_order(tick)):
                             continue
                         else:
                             bot_chat("매수완료")
-                            break
-            if(btc > 0.001):
-                if(current_price > buy_price * 1.001):
-                    upbit.sell_market_order(tick, btc*0.9995)
-                    while True:
-                        if(upbit.get_order(tick)):
-                            continue
-                        else:
-                            bot_chat("매도완료")
+                            print("buy")
                             break
         else:
             if(btc > 0.001):
@@ -66,11 +56,9 @@ while True:
                             continue
                         else:
                             bot_chat("매도완료")
+                            print("sell")
                             break
         time.sleep(1)
     except Exception as e:
         print(e)
         time.sleep(1)
-
-
-
