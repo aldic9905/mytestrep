@@ -50,7 +50,7 @@ while True:
         now = datetime.now()
         btc = upbit.get_balance(tick)  
         krw = upbit.get_balance("KRW")
-        data = pyupbit.get_ohlcv(ticker="KRW-ETH", interval="minute10")
+        data = pyupbit.get_ohlcv(ticker=tick, interval="minute10")
         now_rsi = rsi(data,14).iloc[-1]
 
         if now_rsi <= 28 :
