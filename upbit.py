@@ -56,17 +56,26 @@ while True:
         if now_rsi <= 28 :
             buy_flag = True
         elif now_rsi >= 30 and buy_flag == True :
-            upbit.buy_market_order(tick, krw*0.9995)
-            buy_flag = False
+            if krw > 5000:
+                upbit.buy_market_order(tick, krw*0.9995)
+                buy_flag = False
+                while True:
+                    if(upbit.get_order(tick)):
+                        continue
+                    else:
+                        bot_chat("매수완료")
+                        print("buy")
+                        break
         elif now_rsi >= 50 :
-            upbit.sell_market_order(tick, btc*0.9995)
-            while True:
-                if(upbit.get_order(tick)):
-                    continue
-                else:
-                    bot_chat("매도완료")
-                    print("sell")
-                    break
+            if btc > 0.001:
+                upbit.sell_market_order(tick, btc*0.9995)
+                while True:
+                    if(upbit.get_order(tick)):
+                        continue
+                    else:
+                        bot_chat("매도완료")
+                        print("sell")
+                        break
         time.sleep(1)
     except Exception as e:
         print(e)
