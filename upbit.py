@@ -25,7 +25,7 @@ def rsi(ohlc: pandas.DataFrame, period: int = 14):
 access = "yI8stT3XVWVxqlCn4SAuq1aJGqxPBL89oa8QDr9D"          
 secret = "UEadUBTIqkz4UfV41alibKxbxVwoojfgYnWa9SvP"          
 upbit = pyupbit.Upbit(access, secret)
-tick = ["KRW-ETH", "KRW-BTC", "KRW-XRP", "KRW-SAND","KRW-MATIC"]
+tick = ["KRW-ETH", "KRW-BTC", "KRW-XRP", "KRW-SAND","KRW-DOGE"]
 bot_chat("자동매매 시작")
 print("Autotrade Start")
 while True:
@@ -35,7 +35,7 @@ while True:
         
         for i in range(len(tick)):
             btc = upbit.get_balance(tick[i])
-            data = pyupbit.get_ohlcv(ticker=tick[i], interval="minute60")
+            data = pyupbit.get_ohlcv(ticker=tick[i], interval="minute30")
             now_rsi = rsi(data,14).iloc[-1]
             if now_rsi <= 28 :
                 if krw > 5000:
@@ -47,7 +47,7 @@ while True:
                             bot_chat(tick[i]+"매수완료")
                             print("buy")
                             break
-            elif now_rsi >= 60 :
+            elif now_rsi >= 70 :
                 if btc:
                     upbit.sell_market_order(tick[i], btc)
                     while True:
