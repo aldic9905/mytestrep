@@ -60,4 +60,7 @@ while True:
         time.sleep(1)
     except Exception as e:
         print(e)
+        bot_chat("ERROR")
+        break;
         time.sleep(1)
+bot_chat("SERVER DOWN")
