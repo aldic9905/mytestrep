@@ -37,7 +37,7 @@ while True:
             btc = upbit.get_balance(tick[i])
             data = pyupbit.get_ohlcv(ticker=tick[i], interval="minute30")
             now_rsi = rsi(data,14).iloc[-1]
-            if now_rsi <= 30 :
+            if now_rsi <= 35 :
                 if krw > 5000:
                     upbit.buy_market_order(tick[i], krw*0.9995)
                     while True:
