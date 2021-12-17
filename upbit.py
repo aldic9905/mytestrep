@@ -47,7 +47,7 @@ while True:
                             bot_chat(tick[i]+"매수완료")
                             print("buy")
                             break
-            elif now_rsi >= 63 :
+            elif now_rsi >= 60 :
                 if btc:
                     upbit.sell_market_order(tick[i], btc)
                     while True:
