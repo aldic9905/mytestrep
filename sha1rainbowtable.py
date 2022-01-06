@@ -9,9 +9,11 @@ def bot_chat(text):
 a = 'd142afc1ac4a918f459c0a94ca9265ee43841e96'
 
 for i in range(10000000,99999999+1):
-    pw = hashlib.sha1((str(i)+'salt_for_you').encode()).hexdigest()
+    hash = str(i)+'salt_for_you'
+    for j in range(500):
+        pw = hashlib.sha1(hash.encode()).hexdigest()
     if pw == a :
         bot_chat(str(i)+'salt_for_you')
         break
-    print('no'+str(i))
+    if i%100000 == 0 : print(i)
  
